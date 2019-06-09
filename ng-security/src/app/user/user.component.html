@@ -1,0 +1,8 @@
+<h4>Content from Server</h4>
+{{board}}
+{{errorMessage}}
+
+{{msg}}
+<app-video [dataQuestion]="msg" (talk)="talkBack($event) "> </app-video>
+<app-question (sendData)="receigeveMsg($event)"></app-question>
+<router-outlet></router-outlet>

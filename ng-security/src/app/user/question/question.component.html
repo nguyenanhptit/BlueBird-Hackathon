@@ -1,0 +1,24 @@
+<div>
+  <button (click)="getData()">
+    Start
+  </button>
+  <div>
+    <h2 *ngIf="question">Cau hoi {{question.id}}: {{question.content}} </h2>
+  </div>
+
+  <div *ngIf="listAnswer">
+    <!-- Form starts -->
+    <form [formGroup]="formQuestion" (ngSubmit)="onSubmit()" *ngIf="question && listAnswer">
+      <table>
+        <tr *ngFor="let awesome of listAnswer; let i =index">
+          <td>
+            <label for="dap-an-A">{{dapAn[i]}} {{awesome.result}}</label>
+            <input id="dap-an-A" type="radio" class="custom-control-input" value="{{awesome.id}}" name="answer" formControlName="answer">
+          </td>
+        </tr>
+      </table>
+      <!-- Submit Button -->
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
