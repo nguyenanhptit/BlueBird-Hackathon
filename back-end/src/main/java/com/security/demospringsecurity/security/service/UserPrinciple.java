@@ -65,6 +65,7 @@ public class UserPrinciple implements UserDetails {
         return email;
     }
 
+
     @Override
     public String getUsername() {
         return username;

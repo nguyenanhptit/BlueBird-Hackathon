@@ -15,17 +15,17 @@ public class JwtProvider {
     private static final Logger logger = LoggerFactory.getLogger(JwtProvider.class);
 
 
-    private String jwtSecret="jwtGrokonezSecretKey";
+    private String jwtSecret="NguyenAnh";
 
 
-    private int jwtExpiration =86400;
+    private int jwtExpiration =240696;
 
     public String generateJwtToken(Authentication authentication) {
 
         UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
 
         return Jwts.builder()
-                .setSubject((userPrincipal.getUsername()))
+                .setSubject((userPrincipal.getEmail()))
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpiration*1000))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)

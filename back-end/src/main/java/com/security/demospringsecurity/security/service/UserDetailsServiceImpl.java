@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.file.attribute.UserPrincipal;
 
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
@@ -20,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userRepository.findByUsername(username).orElseThrow(
+        User user = userRepository.findByEmail(username).orElseThrow(
                 () -> new UsernameNotFoundException("User Not Found with -> username or email : " + username));
 
         return UserPrinciple.build(user);

@@ -48,7 +48,7 @@ public class AuthRestAPIs {
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 

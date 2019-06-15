@@ -17,11 +17,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
@@ -32,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    private JwtAuthEntryPoint unauthorizedHandler;
+    private JwtAuthEntryPoint jwtAuthEntryPoint;
 
     @Bean
     public JwtAuthTokenFilter authenticationJwtTokenFilter() {
@@ -64,9 +59,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                //sử dụng phiên phi trạng thái stateless session; session sẽ không được sử dụng va lưu trữ trạng thái của người dùng.
+                .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
+            //filter to validate the tokens with every request.
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

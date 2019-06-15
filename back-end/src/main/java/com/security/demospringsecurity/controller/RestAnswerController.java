@@ -44,8 +44,8 @@ public class RestAnswerController {
             HashSet hs = new HashSet();
             while (hs.size() < 3) {
 
-                int num = (int) (Math.random() * 7) + 1;
-                if (num == id) {
+                int num = (int) (Math.random() * 10) ;
+                if (num == id+1 && num == id-1 ) {
                     continue;
                 } else {
                     hs.add(num);
@@ -55,7 +55,7 @@ public class RestAnswerController {
             }
             System.out.println("My hs" + hs);
             for (Object number : hs) {
-                answersResult.add(answers.get((Integer) number - 1));
+                answersResult.add(answers.get((Integer) number ));
             }
             answersResult.add(answer);
             return new ResponseEntity<List<Answer>>(answersResult, HttpStatus.OK);

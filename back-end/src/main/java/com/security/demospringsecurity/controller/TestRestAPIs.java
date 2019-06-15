@@ -11,7 +11,7 @@ public class TestRestAPIs {
 
     @GetMapping("/api/test/user")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public String userAccess() {
+    public String emailAccess() {
         return ">>> User Contents!";
     }
 
